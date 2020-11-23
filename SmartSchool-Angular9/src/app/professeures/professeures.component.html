@@ -1,0 +1,82 @@
+<div *ngIf="profSelected">
+  <app-titre [titre]="(profSelected.id === 0 ? 'nouveau prof' :'Code:' + profSelected.id)">
+
+        <button class="btn btn-warning" (click)="Retour()">
+          Listes Des professeures
+        </button>
+      </app-titre>
+
+
+
+
+<form [formGroup]="professeurForm" (submit)="professeurSubmit()">
+
+  <div class="form-group">
+    <label for="formGroupExampleInput">Nom</label>
+    <input type="text" formControlName="nom" class="form-control" >
+  </div>
+  <!-- <div class="form-group">
+    <label for="formGroupExampleInput2">Dicipiline</label>
+    <input type="text"  formControlName="dicipilne"  class="form-control" >
+  </div> -->
+  <div class="form-group">
+    <hr>
+    <button class="btn btn-success" [disabled]="!professeurForm.valid">Submit</button>
+  </div>
+
+</form>
+
+</div>
+<div *ngIf="!profSelected">
+  <app-titre [titre]="titre">
+
+      <button class="btn btn-success" (click)="nouveauProfesseur()">
+        Listes Des professeures
+      </button>
+
+  </app-titre>
+
+<table class="table table-hover">
+    <thead class="thead-light">
+      <tr>
+        <th scope="col">Voir</th>
+        <th scope="col">#</th>
+        <th scope="col">NOM</th>
+        <th scope="col">Dicipiline</th>
+        <th scope="col">Details</th>
+
+      </tr>
+    </thead>
+    <tbody>
+
+      <tr *ngFor="let professeure of professeures" >
+      <td>
+            <button  (click)="profSelect(professeure)" class="text-dark btn btn-outline-warning" > Details</button>
+      </td>
+
+        <th scope="row">{{professeure.id}}</th>
+        <td>{{professeure.nom}}</td>
+        <td>{{professeure.dicipilne}}</td>
+        <td>
+          <div class="btn-group">
+            <button  (click)="openModal(template)" class="text-dark btn btn-outline-primary">Eleves </button>
+          </div>
+        </td>
+
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Modal</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    This is a modal.
+  </div>
+</ng-template>
